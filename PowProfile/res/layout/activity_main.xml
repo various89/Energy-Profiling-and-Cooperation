@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="17dp"
         android:text="ToggleButton" />
 
     <TextView
@@ -29,39 +28,20 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/serviceToggle"
         android:layout_alignBottom="@+id/serviceToggle"
-        android:layout_centerHorizontal="true"
-        android:text="Toggle Battery Service" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/currentBatteryLevel"
-        android:layout_alignLeft="@+id/textView2"
-        android:text="Battery Voltage Level" />
-
-    <TextView
-        android:id="@+id/currentBatteryLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/serviceToggle"
-        android:layout_alignRight="@+id/serviceToggle"
-        android:layout_below="@+id/serviceToggle"
-        android:layout_marginTop="80dp"
-        android:text="-"
-        android:textStyle="bold"
-        android:typeface="monospace" />
+        android:layout_toRightOf="@+id/serviceToggle"
+        android:text="Toggle Service"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/loggingInterval"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/serviceToggle"
-        android:layout_alignRight="@+id/serviceToggle"
         android:layout_below="@+id/serviceToggle"
+        android:layout_toLeftOf="@+id/textView2"
         android:ems="10"
         android:inputType="number"
-        android:text="3" >
+        android:text="1" >
 
         <requestFocus />
     </EditText>
@@ -72,7 +52,135 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/loggingInterval"
         android:layout_alignBottom="@+id/loggingInterval"
-        android:layout_alignLeft="@+id/textView2"
-        android:text="Logging Interval (Seconds)" />
+        android:layout_toRightOf="@+id/loggingInterval"
+        android:text="Logging Interval (Secs)"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/secondsToLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/loggingInterval"
+        android:layout_alignRight="@+id/loggingInterval"
+        android:layout_below="@+id/loggingInterval"
+        android:ems="10"
+        android:inputType="number"
+        android:text="600" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/secondsToLog"
+        android:layout_alignBottom="@+id/secondsToLog"
+        android:layout_alignLeft="@+id/textView3"
+        android:text="Max Seconds to Log"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/writeLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/secondsToLog"
+        android:layout_below="@+id/secondsToLog"
+        android:text="Write Log" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/writeLog"
+        android:layout_centerVertical="true"
+        android:text="Logged Events:"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/loggedEvents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_alignRight="@+id/writeLog"
+        android:layout_toRightOf="@+id/textView5"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_below="@+id/textView5"
+        android:text="Seconds Running:" />
+
+    <TextView
+        android:id="@+id/elapsedSeconds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView6"
+        android:layout_alignBottom="@+id/textView6"
+        android:layout_alignRight="@+id/loggedEvents"
+        android:layout_toRightOf="@+id/textView6"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_below="@+id/textView6"
+        android:text="Current Voltage:" />
+
+    <TextView
+        android:id="@+id/currentBatteryLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/elapsedSeconds"
+        android:layout_below="@+id/textView6"
+        android:layout_toRightOf="@+id/textView8"
+        android:text="-" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView8"
+        android:layout_below="@+id/textView8"
+        android:text="Last Update:" />
+
+    <TextView
+        android:id="@+id/lastUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/currentBatteryLevel"
+        android:layout_below="@+id/textView8"
+        android:layout_toRightOf="@+id/textView7"
+        android:text="-" />
+
+    <Button
+        android:id="@+id/flushData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView7"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="59dp"
+        android:text="Flush Data" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView7"
+        android:layout_below="@+id/textView7"
+        android:text="Voltage Delta:" />
+
+    <TextView
+        android:id="@+id/voltageDelta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView9"
+        android:layout_alignBottom="@+id/textView9"
+        android:layout_alignRight="@+id/lastUpdate"
+        android:layout_toRightOf="@+id/textView9"
+        android:text="-" />
 
 </RelativeLayout>

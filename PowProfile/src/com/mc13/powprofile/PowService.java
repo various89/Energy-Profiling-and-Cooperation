@@ -51,7 +51,7 @@ public class PowService extends Service {
 	public void onCreate() {
 		Toast.makeText(this, "PowService created", Toast.LENGTH_LONG).show();
 		Log.d(TAG, "onCreate");	
-		ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+		
 	}	
 	
 	@Override	
@@ -73,6 +73,7 @@ public class PowService extends Service {
 			serviceInterval = extras.getInt("loggingInterval");
 		}
 		scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
+		ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
 		batteryStatus = registerReceiver(null, ifilter);
 		
 		startTimeStamp = System.currentTimeMillis();
@@ -84,6 +85,8 @@ public class PowService extends Service {
 		        int level = -1;
 		        int voltage = -1;
 		        int temp = -1;
+		        ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+				batteryStatus = registerReceiver(null, ifilter);
 		        scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 		        level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 				voltage = batteryStatus.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
@@ -92,19 +95,20 @@ public class PowService extends Service {
 		        readings.put("scale", Integer.toString(scale));
 		        readings.put("level", Integer.toString(level));
 		        readings.put("voltage", Integer.toString(voltage));
-		        readings.put("voltageDelta", Integer.toString(startVoltage - voltage));
+		        readings.put("voltageDelta", Integer.toString(voltage - startVoltage));
 		        readings.put("temp", Integer.toString(temp));
 		        long elapsedTimeSecs = (System.currentTimeMillis() - startTimeStamp) / 1000;
 		        readings.put("elapsedSeconds", String.valueOf(elapsedTimeSecs));
 		        Time now = new Time();
 				now.setToNow();
-				readings.put("time", now.format2445());
+				readings.put("time", now.format("%Y-%m-%d--%H-%M-%S"));
 		        Bundle resultData = new Bundle();
 		        for (Map.Entry<String, String> entry: readings.entrySet()) {
 		        	resultData.putString(entry.getKey(), entry.getValue());
 		        }
 		        resultReceiver.send(0, resultData);
-				Log.d(TAG, "voltage is "+voltage);
+		        batteryStatus = null;
+				Log.d(TAG, "voltage is " + voltage);
 			}
 		}, 0, serviceInterval, TimeUnit.SECONDS);
 		Toast.makeText(this, "PowService started, Interval: " + String.valueOf(serviceInterval), Toast.LENGTH_LONG).show();

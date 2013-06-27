@@ -16,12 +16,12 @@ import android.os.ResultReceiver;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
-import android.content.BroadcastReceiver;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.text.format.Time;
 import android.util.Log;
-import android.view.Menu;
+// import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -132,6 +132,9 @@ public class MainActivity extends Activity {
 		}
 		serviceToggle.setChecked(isPowServiceRunning());
 		loggingInterval.setEnabled(!isPowServiceRunning());
+		secondsToLog.setEnabled(!isPowServiceRunning());
+		writeLog.setEnabled(!isPowServiceRunning());
+		flushData.setEnabled(!isPowServiceRunning());
 	}
 	
 	protected void reset() {
@@ -207,6 +210,27 @@ public class MainActivity extends Activity {
 			Toast.makeText(this, "External Storage unavailable ",
 					Toast.LENGTH_SHORT).show();
 		}
+	}
+	
+	@Override
+	public void onBackPressed() {
+	    new AlertDialog.Builder(this)
+	        .setIcon(android.R.drawable.ic_dialog_alert)
+	        .setTitle("Closing PowProfile")
+	        .setMessage("Are you sure you want to quit?")
+	        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+	    {
+	        @Override
+	        public void onClick(DialogInterface dialog, int which) {
+	        	if (isPowServiceRunning()) {
+	        		toggleService();
+	        	}
+	            finish();    
+	        }
+
+	    })
+	    .setNegativeButton("No", null)
+	    .show();
 	}
 
 /*	@Override

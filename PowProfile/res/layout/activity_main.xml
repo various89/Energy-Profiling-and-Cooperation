@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/secondsToLog"
         android:layout_below="@+id/secondsToLog"
-        android:text="Write Log" />
+        android:text="Write Log to SD card" />
 
     <TextView
         android:id="@+id/textView5"
@@ -163,7 +163,7 @@
         android:layout_alignLeft="@+id/textView7"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="59dp"
-        android:text="Flush Data" />
+        android:text="Reset Data" />
 
     <TextView
         android:id="@+id/textView9"
@@ -171,7 +171,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView7"
         android:layout_below="@+id/textView7"
-        android:text="Voltage Delta:" />
+        android:text="Voltage Change since Start:" />
 
     <TextView
         android:id="@+id/voltageDelta"

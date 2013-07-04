@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -160,6 +163,11 @@ public class MainActivity extends Activity {
 			loggedEvents.setText(String.valueOf(readingsList.size()));
 		}
 		if (stopService && isPowServiceRunning()) {
+			try {
+		        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+		        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+		        r.play();
+		    } catch (Exception e) {}
 			toggleService();
 		}
 	}
